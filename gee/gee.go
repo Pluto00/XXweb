@@ -1,6 +1,7 @@
 package gee
 
 import (
+	"log"
 	"net/http"
 )
 
@@ -38,5 +39,6 @@ func (engine *Engine) Run(addr string) (err error) {
 
 func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	c := newContext(w, req)
+	log.Printf("%s:%4s - %s", c.Req.RemoteAddr, c.Method, c.Path)
 	engine.router.handle(c)
 }
